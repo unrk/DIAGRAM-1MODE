@@ -21,3 +21,6 @@
 18. a) Oui, avec des paramètres différents (surcharge)
 19. b) Unified Modeling Language
 20. c) Privée
+
+## Voici le diagram
+![diagram](https://github.com/user-attachments/assets/80a7f95b-5a08-4bbb-826f-81aebb231ce1)
