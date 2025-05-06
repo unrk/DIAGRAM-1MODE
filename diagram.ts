@@ -7,6 +7,7 @@ class Projet {
   budget: number;
   client: string;
   methode: string;
+  taches: Tache[];
 
   constructor(nom: string, description: string, dateDebut: Date, dateFinPrevu: Date, budget: number, client: string, methode: string) {
     this.nom = nom;
@@ -16,10 +17,11 @@ class Projet {
     this.budget = budget;
     this.client = client;
     this.methode = methode;
+    this.taches = [];
   }
 
   createTask(tache: Tache): void {
-    // Logique pour créer une tâche
+    this.taches.push(tache);
   }
 }
 
@@ -31,6 +33,7 @@ class Tache {
   estimation: number;
   etat: string;
   developpeurAssigne: Developeur;
+  sousTaches: SousTache[];
 
   constructor(nom: string, description: string, priorite: number, estimation: number, etat: string, developpeurAssigne: Developeur) {
     this.nom = nom;
@@ -39,10 +42,11 @@ class Tache {
     this.estimation = estimation;
     this.etat = etat;
     this.developpeurAssigne = developpeurAssigne;
+    this.sousTaches = [];
   }
 
   createSubTask(sousTache: SousTache): void {
-    // Logique pour créer une sous-tâche
+    this.sousTaches.push(sousTache);
   }
 
   changeStatus(nouvelEtat: string): void {
@@ -55,8 +59,8 @@ class Tache {
 class SousTache extends Tache {
   tacheParent: Tache;
 
-  constructor(nom: string, description: string, priorite: number, estimation: number, etat: string, tacheParent: Tache) {
-    super(nom, description, priorite, estimation, etat, null); // developpeurAssigne est null pour une sous-tâche
+  constructor(nom: string, description: string, priorite: number, estimation: number, etat: string, tacheParent: Tache, developpeurAssigne: Developeur) {
+    super(nom, description, priorite, estimation, etat, developpeurAssigne);
     this.tacheParent = tacheParent;
   }
 }
@@ -78,7 +82,7 @@ class Developeur {
   }
 
   assignTask(tache: Tache): void {
-    // Logique pour assigner une tâche
+    tache.developpeurAssigne = this;
   }
 }
 
@@ -94,8 +98,13 @@ class Equipe {
     this.listeDeveloppeurs = listeDeveloppeurs;
   }
 
-  consultAssignedTasks(): void {
-    // Logique pour consulter les tâches assignées
+  consultAssignedTasks(): Tache[] {
+    let assignedTasks: Tache[] = [];
+    this.listeDeveloppeurs.forEach(developpeur => {
+      // Supposons que chaque développeur a une liste de tâches assignées
+      // Ici, nous devons implémenter la logique pour obtenir les tâches assignées à chaque développeur
+    });
+    return assignedTasks;
   }
 }
 
@@ -105,15 +114,17 @@ class Livrable {
   description: string;
   dateLivraisonPrevu: Date;
   etat: string;
+  taches: Tache[];
 
   constructor(nom: string, description: string, dateLivraisonPrevu: Date, etat: string) {
     this.nom = nom;
     this.description = description;
     this.dateLivraisonPrevu = dateLivraisonPrevu;
     this.etat = etat;
+    this.taches = [];
   }
 
-  defineCompletedTasks(): void {
-    // Logique pour définir les tâches complétées
+  defineCompletedTasks(taches: Tache[]): void {
+    this.taches = taches;
   }
 }
